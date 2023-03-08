@@ -1,0 +1,39 @@
+﻿@model IEnumerable<KolpackiRWypozyczalnia.Models.Category>
+<html>
+    <head>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Wypozyczalnia @ViewData["Title"]</title>
+    </head>
+    <body>
+        <header class=":manu-bar">
+            <nav class="menu">
+
+            
+        @foreach (var kategoria in Model)
+        {
+            <a href="#" @kategoria.Name></a>
+        }
+        </nav>
+    </header>
+        <main class="main-page">
+        @RenderBody()
+        </main>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <p class="col-md-4 mb-0 text-muted">&copy; 2022 Company, Inc</p>
+
+        
+
+        <ul class="nav col-md-5 justify-content-end">
+            <li class="nav-item">
+                <a href="@Url.Action("StronyStatyczne","Home", new {nazwa="Onas"})" class="nav-link px-2 text-muted">O nas</a></li>
+            <li class="nav-item">
+                <a href="@Url.Action("StronyStatyczne","Home", new {nazwa="Regulamin"})" class="nav-link px-2 text-muted">Regulamin</a></li>
+            <li class="nav-item">
+                <a href="@Url.Action("StronyStatyczne","Home", new {nazwa="MetodyPlatnosci"})" class="nav-link px-2 text-muted">Metody płatności</a></li>
+            <li class="nav-item">
+                <a href="@Url.Action("StronyStatyczne","Home", new {nazwa="Kontakt"})" class="nav-link px-2 text-muted">Kontakt</a></li>
+        </ul>
+    </footer>
+    </body>
+</html>

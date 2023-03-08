@@ -1,4 +1,6 @@
 ﻿
+using Flurl.Http.Content;
+using KolpackiRWypozyczalnia.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,23 +13,28 @@ namespace KolpackiRWypozyczalnia.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        FilmContext db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(FilmContext db)
         {
-            _logger = logger;
+            this.db = db;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var kategorie = db.Categories.ToList();
+
+            return View(kategorie);
         }
 
         public IActionResult Privacy()
         {
             return View();
         }
+        public IActionResult StronyStatyczne(string nazwa)
+        {
+            return View(nazwa);
+        }
 
-       
     }
 }

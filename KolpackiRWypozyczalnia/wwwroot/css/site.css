@@ -69,3 +69,31 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+/* Własny css */
+.main-page{
+    min-height: 85vh;
+}
+.menu-bar{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height: 5rem;
+}
+.menu{
+    display: flex;
+    flex-direction: row;
+
+}
+.menu-link{
+    display: block;
+    font-size: 1.5rem;
+    margin-right: 2rem;
+    padding: 1rem 0;
+}
+.menu-link: hover{
+    color: darkblue;
+    text-decoration: none;
+}
+.a {
+    
+}
