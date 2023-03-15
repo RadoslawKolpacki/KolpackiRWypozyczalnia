@@ -90,7 +90,7 @@ body {
     margin-right: 2rem;
     padding: 1rem 0;
 }
-.menu-link: hover{
+.menu-link.hover{
     color: darkblue;
     text-decoration: none;
 }

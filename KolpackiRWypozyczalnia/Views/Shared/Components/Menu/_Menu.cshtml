@@ -1,0 +1,10 @@
+﻿@model IEnumerable<KolpackiRWypozyczalnia.Models.Category>
+
+<nav class="menu">
+
+
+    @foreach (var kategoria in Model)
+    {
+        <a href="@Url.Action("FilmsList", "Films", new {categoryName = kategoria.Name })"> @kategoria.Name</a>
+    }
+</nav>

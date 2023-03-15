@@ -54,6 +54,12 @@ namespace KolpackiRWypozyczalnia
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "Kategorie",
+                    pattern: "{categoryName}",
+                    defaults: new {controller = "Films", action = "FilmsList"}
+                    );
+
+                endpoints.MapControllerRoute(
                     name: "StronyStatyczne",
                     pattern: "Info/{nazwa}",
                     defaults: new {controller="Home", action="StronyStatyczne"}
