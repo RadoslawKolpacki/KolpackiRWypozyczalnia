@@ -1,0 +1,21 @@
+﻿@model KolpackiRWypozyczalnia.Models.Film
+
+<div>
+    <table>
+        <tr>
+            <td>
+                <h1>@Model.Category.Name</h1>
+            </td>
+            <td>
+                <ul>
+                    <li>Tytuł: @Model.Title</li>
+                    <li>Reżyser: @Model.Director</li>
+                    <li>Opis: @Model.Desc</li>
+                    <li>Cena: @Model.Price</li>
+                    <li>Data dodania: @Model.PublishDate</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+
+</div>

@@ -5,6 +5,7 @@
 
     @foreach (var kategoria in Model)
     {
-        <a href="@Url.Action("FilmsList", "Films", new {categoryName = kategoria.Name })"> @kategoria.Name</a>
+        <a class= "menu-link"  href="@Url.Action("FilmsList", "Films", new {categoryName = kategoria.Name })"> @kategoria.Name</a>
+
     }
 </nav>

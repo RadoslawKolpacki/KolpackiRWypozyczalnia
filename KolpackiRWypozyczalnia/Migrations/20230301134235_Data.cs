@@ -12,7 +12,7 @@ namespace KolpackiRWypozyczalnia.Migrations
                 values: new object[,]
                 {
                     { 1, "Straszne filmy", "Horror" },
-                    { 2, "Filmy oparte na faktach", "dokumentalne" },
+                    { 2, "Filmy oparte na faktach", "Dokumentalne" },
                     { 3, "dreszczowce", "Thriller" },
                     { 4, "Filmy z akcją", "Sensacyjne" },
                     { 5, "Elementy magiiczne i nadprzyrodzone", "Fantasy" }

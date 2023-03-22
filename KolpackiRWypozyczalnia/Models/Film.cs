@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace KolpackiRWypozyczalnia.Models
 {
@@ -11,7 +12,9 @@ namespace KolpackiRWypozyczalnia.Models
         [StringLength(500)]
         public string Desc { get; set; }
         public decimal Price { get; set; }
-        
+
+        public DateTime PublishDate { get; set; }
+
         public int CategoryId { get; set; }
         public Category Category { get; set; }
     }
