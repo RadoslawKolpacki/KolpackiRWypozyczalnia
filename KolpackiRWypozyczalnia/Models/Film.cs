@@ -15,6 +15,7 @@ namespace KolpackiRWypozyczalnia.Models
 
         public DateTime PublishDate { get; set; }
 
+        public string PosterName { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
     }

@@ -5,6 +5,7 @@
         <tr>
             <td>
                 <h1>@Model.Category.Name</h1>
+                @await Component.InvokeAsync("CategoryMenu", new {categoryName = Model.Category.Name})
             </td>
             <td>
                 <ul>
