@@ -87,7 +87,31 @@ namespace KolpackiRWypozyczalnia.Controllers
                 return View(films.ToList());
             }
 
-            return RedirectToAction("Index", "Home");
+           return RedirectToAction("Index", "Home");
+        }
+        [HttpGet]
+        public IActionResult EditFilm(int id)
+        {
+            var film = db.Films.Where(f=>f.Id == id).FirstOrDefault();
+
+            return View(film);
+        }
+        [HttpPost]
+        public IActionResult EditFilm(Film film)
+        {
+            var findFilm = db.Films.Where(f => f.Id == film.Id).FirstOrDefault();
+            findFilm.Title = film.Title;
+            findFilm.Director = film.Director;
+            findFilm.Desc = film.Desc;
+            findFilm.Price = film.Price;
+
+
+            db.Entry(findFilm).State = EntityState.Modified;
+            db.SaveChanges();   
+
+            return RedirectToAction("Details", "Films", new { FilmId = findFilm.Id });
+
+            
         }
     }
 }
