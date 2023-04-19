@@ -1,27 +1,6 @@
-﻿@model KolpackiRWypozyczalnia.ViewModels.CategoryFilmsViewModel
-@{
-    ViewData["Title"] = Model.Category.Name;
-}
-<link href="~/lib/bootstrao/dist/css/bootstrap.min.css" rel="stylesheet"/>
-
-<table>
-    <tr>
-        @foreach (var film in Model.RecentFilms)
-
-        {
-            <td>
-                <img src="~/content/@film.PosterName" height="200px" alt="Plakat filmu" /> 
-            </td>
-        }
+﻿@model IEnumerable<KolpackiRWypozyczalnia.Models.Film>
 
 
-    </tr>
-</table>
-
-
-
-
-<h1>@Model.Category.Name </h1>
 <table class="table">
     <thead>
         <tr>
@@ -32,7 +11,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var film in Model.CategoryFilms)
+        @foreach (var film in Model)
         {
             <tr>
                 <td> @film.Title </td>

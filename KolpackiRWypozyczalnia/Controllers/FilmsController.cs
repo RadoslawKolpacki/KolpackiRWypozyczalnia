@@ -60,15 +60,33 @@ namespace KolpackiRWypozyczalnia.Controllers
         public IActionResult AddFilm(AddFilmViewModel model)
         {
             var folderPath = Path.Combine(hostEnvironment.WebRootPath, "content");
-            var posterPath = Path.Combine(folderPath, model.Poster.FileName);
+            var uniqueName = model.Poster.FileName + Guid.NewGuid();
+            var posterPath = Path.Combine(folderPath, uniqueName);
+
             model.Poster.CopyTo(new FileStream(posterPath, FileMode.Create));
 
-
             model.NewFilm.PublishDate = DateTime.Now;
-            model.NewFilm.PosterName = model.Poster.FileName;
+            model.NewFilm.PosterName = uniqueName;
+
             db.Films.Add(model.NewFilm);
 
             db.SaveChanges();  
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult Search (String text)
+        {
+
+            var films = from f in db.Films select f;
+
+            if(!String.IsNullOrEmpty(text))
+            {
+                films = films.Where(f=>f.Title.Contains(text));
+
+                return View(films.ToList());
+            }
+
             return RedirectToAction("Index", "Home");
         }
     }

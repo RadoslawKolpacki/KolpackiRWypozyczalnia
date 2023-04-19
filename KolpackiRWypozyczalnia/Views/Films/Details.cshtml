@@ -8,6 +8,9 @@
                 @await Component.InvokeAsync("CategoryMenu", new {categoryName = Model.Category.Name})
             </td>
             <td>
+                <img src="~/content/@Model.PosterName" height="300px" alt="Plakat filmu" />
+            </td>
+            <td>
                 <ul>
                     <li>Tytuł: @Model.Title</li>
                     <li>Reżyser: @Model.Director</li>
