@@ -4,17 +4,14 @@
 }
 <link href="~/lib/bootstrao/dist/css/bootstrap.min.css" rel="stylesheet"/>
 
-<table>
+<table width="100%">
     <tr>
         @foreach (var film in Model.RecentFilms)
-
         {
-            <td>
+            <td style="text-align:center">
                 <img src="~/content/@film.PosterName" height="200px" alt="Plakat filmu" /> 
             </td>
         }
-
-
     </tr>
 </table>
 
@@ -23,12 +20,13 @@
 
 <h1>@Model.Category.Name </h1>
 <table class="table">
-    <thead>
+    <thead class="thead-dark">
         <tr>
             <th>Tytuł filmu</th>
             <th>Reżyser</th>
             <th>Opis</th>
             <th>Cena</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -45,5 +43,4 @@
             </tr>
         }
     </tbody>
-
 </table>

@@ -26,7 +26,7 @@
     <div class= = "form-check">
         @foreach (var kategoria in Model.Categories)
         {
-            @Html.RadioButtonFor(m=> m.NewFilm.CategoryId, kategoria.Id, new {@class = "form-check-input"})
+            @Html.RadioButtonFor(m=> m.NewFilm.CategoryId, kategoria.Id, new {@class = "form-check-input",@required=true})
             @Html.LabelFor(m=>m.NewFilm.CategoryId, kategoria.Name, new {@class = "form-check-input" })
             <br/>
         }

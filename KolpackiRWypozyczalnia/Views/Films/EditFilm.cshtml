@@ -3,10 +3,10 @@
 <div>
     <table>
         <tr>
-            <td>
+            @*<td>
                 <h1>@Model.Category.Name</h1>
                 @await Component.InvokeAsync("CategoryMenu", new {categoryName = Model.Category.Name})
-            </td>
+            </td>*@
             <td>
                 <img src="~/content/@Model.PosterName" height="300px" alt="Plakat filmu" />
             </td>
@@ -16,25 +16,29 @@
                     @Html.HiddenFor(f=>f.PosterName)
                     @Html.HiddenFor(f=>f.CategoryId)
                     @Html.HiddenFor(f=>f.PublishDate)
-                }
-                <ul>
-                    <li>Tytuł: 
+                
+                <ul class="list-group list-group-flush">
+                    <li class =list-group-item>
+                        Tytuł:
                         @Html.TextBoxFor(f=>f.Title, new {@class = "form-control"})
                     </li>
-                    <li>Reżyser: 
+                    <li class =list-group-item>
+                        Reżyser:
                         @Html.TextBoxFor(f=>f.Director, new {@class = "form-control"})
                     </li>
-                    <li>Opis: 
+                    <li class=list-group-item>
+                        Opis:
                         @Html.TextBoxFor(f=>f.Desc, new {@class = "form-control"})
                     </li>
-                    <li>Cena: 
-                        @Html.TextBoxFor(f=>f.Price, new {@class = "form-control"})
+                    <li class=list-group-item>
+                        Cena:
+                        @Html.TextBoxFor(f=>f.Price, new {@class = "form-control"})zł
                     </li>
                     
                 </ul>
                 <button type="Submit" class="btn btn-primary">Zapisz zmiany</button>
+                }
             </td>
         </tr>
     </table>
-
 </div>

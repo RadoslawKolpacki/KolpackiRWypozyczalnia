@@ -1,12 +1,14 @@
-﻿using KolpackiRWypozyczalnia.DAL;
-using KolpackiRWypozyczalnia.Models;
-using KolpackiRWypozyczalnia.ViewModels;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using KolpackiRWypozyczalnia.DAL;
+using KolpackiRWypozyczalnia.Models;
+using KolpackiRWypozyczalnia.ViewModels;
 
 namespace KolpackiRWypozyczalnia.Controllers
 {
@@ -52,7 +54,9 @@ namespace KolpackiRWypozyczalnia.Controllers
         public IActionResult AddFilm()
         {
             var model = new AddFilmViewModel();
-            var catergories = db.Categories.ToList();  
+            var catergories = db.Categories.ToList(); 
+            
+            model.Categories = catergories;
             
             return View();
         }
@@ -75,7 +79,7 @@ namespace KolpackiRWypozyczalnia.Controllers
         }
 
         [HttpPost]
-        public IActionResult Search (String text)
+        public IActionResult Search(string text)
         {
 
             var films = from f in db.Films select f;

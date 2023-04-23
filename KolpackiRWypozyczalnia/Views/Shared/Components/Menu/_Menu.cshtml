@@ -6,6 +6,7 @@
     @foreach (var kategoria in Model)
     {
         <a class= "menu-link"  href="@Url.Action("FilmsList", "Films", new {categoryName = kategoria.Name })"> @kategoria.Name</a>
+    }
 
         <div class= "input-group menu-link">
         @using (Html.BeginForm("Search", "Films"))
@@ -15,6 +16,4 @@
             }
 
         </div>
-
-    }
 </nav>

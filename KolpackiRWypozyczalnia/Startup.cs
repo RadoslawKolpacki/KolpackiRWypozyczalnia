@@ -27,8 +27,11 @@ namespace KolpackiRWypozyczalnia
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<FilmContext>(options=>options.UseSqlServer
-                (Configuration.GetConnectionString("LocalDB")));
+
+            /// builder.Services.AddDbContext<FilmsContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDB")));
+
+            /// dodawanie Contextu
+            services.AddDbContext<FilmContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,20 +59,19 @@ namespace KolpackiRWypozyczalnia
                 endpoints.MapControllerRoute(
                     name: "Kategorie",
                     pattern: "{categoryName}",
-                    defaults: new {controller = "Films", action = "FilmsList"}
+                    defaults: new { controller = "Films", action = "FilmsList" }
                     );
 
                 endpoints.MapControllerRoute(
                     name: "StronyStatyczne",
                     pattern: "Info/{nazwa}",
-                    defaults: new {controller="Home", action="StronyStatyczne"}
+                    defaults: new { controller = "Home", action = "StronyStatyczne" }
                     );
 
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
         }
     }
 }

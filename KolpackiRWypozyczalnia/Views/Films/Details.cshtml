@@ -3,25 +3,23 @@
 <div>
     <table>
         <tr>
-            <td>
+            <td width="300px">
                 <h1>@Model.Category.Name</h1>
-                @await Component.InvokeAsync("CategoryMenu", new {categoryName = Model.Category.Name})
+                @await Component.InvokeAsync("CategoryMenu", new { categoryName = Model.Category.Name }) 
             </td>
             <td>
-                <img src="~/content/@Model.PosterName" height="300px" alt="Plakat filmu" />
+                <img src="~/content/@Model.PosterName" height="300px" alt="Plakat filmu"/>
             </td>
             <td>
-                <ul>
-                    <li>Tytuł: @Model.Title</li>
-                    <li>Reżyser: @Model.Director</li>
-                    <li>Opis: @Model.Desc</li>
-                    <li>Cena: @Model.Price</li>
-                    <li>Data dodania: @Model.PublishDate</li>
-                    <a href="@Url.Action("EditFilm","Films", new {id = Model.Id} class="btn btn-primary">Edytuj film</a>
+                <ul class="list-group list-group-flush">
+                    <li class=list-group-item>Tytuł: @Model.Title</li>
+                    <li class=list-group-item>Reżyser: @Model.Director</li>
+                    <li class=list-group-item>Opis: @Model.Desc</li>
+                    <li class=list-group-item>Cena: @Model.Price zł</li>
+                    <li class=list-group-item>Data dodania: @Model.PublishDate</li>
                 </ul>
+                <a href="@Url.Action("EditFilm", "Films", new { id=Model.Id })" class="btn btn-primary">Edytuj film</a>
             </td>
         </tr>
     </table>
-
-
 </div>
