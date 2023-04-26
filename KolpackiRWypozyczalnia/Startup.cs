@@ -32,7 +32,10 @@ namespace KolpackiRWypozyczalnia
 
             /// dodawanie Contextu
             services.AddDbContext<FilmContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
+
+            services.AddSession();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -53,6 +56,8 @@ namespace KolpackiRWypozyczalnia
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

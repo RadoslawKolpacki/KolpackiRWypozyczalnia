@@ -1,0 +1,19 @@
+﻿@model IEnumerable<KolpackiRWypozyczalnia.Models.CartItem>
+
+<h1>Koszyk</h1>
+
+<table class= ="table">
+    @foreach (var CartItem in Model)
+    {
+        <tr>
+            <td>@CartItem.Film.Title</td>
+            <td>@CartItem.Film.Quantity</td>
+            <td>@CartItem.Film.Value</td>
+
+        </tr>
+    }
+
+</table>
+<div>
+    Razem: @ViewBag.totalPrice zł
+</div>
