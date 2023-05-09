@@ -31,12 +31,10 @@ namespace KolpackiRWypozyczalnia.Controllers
         {
             return View();
         }
+
         public IActionResult StronyStatyczne(string nazwa)
         {
             return View(nazwa);
         }
-
-       
-
     }
 }

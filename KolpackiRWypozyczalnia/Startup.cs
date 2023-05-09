@@ -36,7 +36,6 @@ namespace KolpackiRWypozyczalnia
             services.AddSession();
         }
 
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -63,7 +62,7 @@ namespace KolpackiRWypozyczalnia
             {
                 endpoints.MapControllerRoute(
                     name: "Kategorie",
-                    pattern: "{categoryName}",
+                    pattern: "Category/{categoryName}",
                     defaults: new { controller = "Films", action = "FilmsList" }
                     );
 

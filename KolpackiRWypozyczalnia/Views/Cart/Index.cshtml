@@ -2,18 +2,17 @@
 
 <h1>Koszyk</h1>
 
-<table class= ="table">
-    @foreach (var CartItem in Model)
+<table class="table">
+    @foreach (var cartItem in Model)
     {
         <tr>
-            <td>@CartItem.Film.Title</td>
-            <td>@CartItem.Film.Quantity</td>
-            <td>@CartItem.Film.Value</td>
-
+            <td>@cartItem.Film.Title</td>
+            <td>@cartItem.Quantity</td>
+            <td>@cartItem.Value</td>
         </tr>
     }
-
 </table>
+
 <div>
     Razem: @ViewBag.totalPrice zł
 </div>
