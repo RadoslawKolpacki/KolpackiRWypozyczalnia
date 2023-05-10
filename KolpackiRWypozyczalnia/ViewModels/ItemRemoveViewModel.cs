@@ -7,5 +7,7 @@
         public int itemQuantity { get; set; }
 
         public decimal TotalValue { get; set; }
+
+        public decimal itemValue() { get; set; }
     }
 }

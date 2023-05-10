@@ -22,7 +22,7 @@
 </table>
 
 <div>
-    Razem: @ViewBag.totalPrice zł
+    Razem: <span id="total">@ViewBag.totalPrice</span> zł
 </div>
 
 @section scripts
@@ -39,6 +39,15 @@
                 $.post("/Cart/RemoveFromCart", { "id": idCartItem }, function(response)
                 {
                     console.log(response);
+                    if (response.itemQuantity == 0)
+                    {
+                        $("#cartitem-" + response.itemId).FadeOut("slow");
+                    }
+                    else
+                    {
+                        $("#itemQuantity-" + response.itemId).text(response.itemQuantity);
+                    }
+                    $("$total").text(response.totalValue);
                 });
             }
     });    

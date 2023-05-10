@@ -34,13 +34,14 @@ namespace KolpackiRWypozyczalnia.Infrastracture
         internal static decimal GetCartValue(ISession session)
         {
             var cart = GetItems (session);
-            return cart.Sum(i => i.Value * i.Quantity);
+            return cart.Sum(i => i.Value);
         }
+
 
         private static List<CartItem> GetItems(ISession session)
         {
         
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
 
             cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Const.CartKey);
 
