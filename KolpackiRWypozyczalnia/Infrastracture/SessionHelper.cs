@@ -25,5 +25,10 @@ namespace KolpackiRWypozyczalnia.Infrastracture
         {
             throw new NotImplementedException();
         }
+
+        internal static object GetObjectFromJson<T>(ISession session, string cartKey)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

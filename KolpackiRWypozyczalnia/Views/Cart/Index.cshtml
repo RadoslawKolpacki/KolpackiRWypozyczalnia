@@ -3,12 +3,20 @@
 <h1>Koszyk</h1>
 
 <table class="table">
+    <tr>
+
+    <th>Tytuł</th>
+    <th>Ilość</th>
+    <th>Wartość</th>
+    <th>Kosz</th>
+    </tr>
     @foreach (var cartItem in Model)
     {
-        <tr>
+        <tr id="cartIten-@cartItem.Film.Id">
             <td>@cartItem.Film.Title</td>
-            <td>@cartItem.Quantity</td>
+            <td id="itemQuantity-@cartItem.Film.Id">@cartItem.Quantity</td>
             <td>@cartItem.Value</td>
+            <td class="trash" data-id="@cartItem.Film.Id">🗑️</td>
         </tr>
     }
 </table>
@@ -16,3 +24,24 @@
 <div>
     Razem: @ViewBag.totalPrice zł
 </div>
+
+@section scripts
+{
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(".trash").click(function()
+    {
+        //console.log("śmietnik kliknięto")
+            var idCartItem = $(this).data('id');
+            if (idCartItem != '')
+            {
+                $.post("/Cart/RemoveFromCart", { "id": idCartItem }, function(response)
+                {
+                    console.log(response);
+                });
+            }
+    });    
+    </script>
+
+}
