@@ -1,14 +1,15 @@
 ﻿@model KolpackiRWypozyczalnia.Models.Film
 
+
 <div>
     <table>
         <tr>
             <td width="300px">
                 <h1>@Model.Category.Name</h1>
-                @await Component.InvokeAsync("CategoryMenu", new { categoryName = Model.Category.Name }) 
+                @await Component.InvokeAsync("CategoryMenu", new { categoryName = Model.Category.Name })
             </td>
             <td>
-                <img src="~/content/@Model.PosterName" height="300px" alt="Plakat filmu"/>
+                <img src="~/content/@Model.PosterName" height="300px" alt="Plakat filmu" />
             </td>
             <td>
                 <ul class="list-group list-group-flush">

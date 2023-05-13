@@ -14,10 +14,10 @@ namespace KolpackiRWypozyczalnia.Controllers
 {
     public class FilmsController : Controller
     {
-        FilmContext db;
+        FilmsContext db;
         IWebHostEnvironment hostEnvironment;
 
-        public FilmsController(FilmContext db, IWebHostEnvironment hostEnvironment)
+        public FilmsController(FilmsContext db, IWebHostEnvironment hostEnvironment)
         {
             this.db = db;
             this.hostEnvironment = hostEnvironment;
@@ -105,6 +105,7 @@ namespace KolpackiRWypozyczalnia.Controllers
         }
 
         [HttpPost]
+
         public IActionResult EditFilm(Film film)
         {
             var findFilm = db.Films.Where(f => f.Id == film.Id).FirstOrDefault();

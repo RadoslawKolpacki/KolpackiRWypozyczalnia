@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<KolpackiRWypozyczalnia.Models.Film>
 
-
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -15,15 +14,14 @@
         @foreach (var film in Model)
         {
             <tr>
-                <td> @film.Title </td>
-                <td> @film.Director </td>
-                <td> @film.Desc </td>
-                <td> @film.Price </td>
+                <td>@film.Title</td>
+                <td>@film.Director</td>
+                <td>@film.Desc</td>
+                <td>@film.Price</td>
                 <td>
-                    <a href="@Url.Action("Details","Films", new {FilmId = film.Id})">&#128269</a>
+                    <a href="@Url.Action("Details", "Films", new { filmId = film.Id })">&#129440;</a>
                 </td>
             </tr>
         }
     </tbody>
-
 </table>

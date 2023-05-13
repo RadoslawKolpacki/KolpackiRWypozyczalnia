@@ -1,36 +1,37 @@
 ﻿@model KolpackiRWypozyczalnia.ViewModels.AddFilmViewModel
 
-@using(Html.BeginForm("AddFilm","Films", FormMethod.Post, new {@enctype = "multipart/form-data"}))
+
+@using (Html.BeginForm("AddFilm", "Films", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
-    <div class="form-group"> 
-        @Html.LabelFor(m=> m.NewFilm.Title, "Podaj tytuł: ")
-        @Html.TextBoxFor(m => m.NewFilm.Title, new{ @class = "form-control", @required = true })
+    <div class="form-group">
+        @Html.LabelFor(m => m.NewFilm.Title, "Podaj tytuł: ")
+        @Html.TextBoxFor(m => m.NewFilm.Title, new { @class = "form-control", @required = true })
     </div>
     <div class="form-group">
-        @Html.LabelFor(m=> m.NewFilm.Director, "Podaj Reżysera: ")
-        @Html.TextBoxFor(m => m.NewFilm.Director, new{ @class = "form-control", @required = true })
+        @Html.LabelFor(m => m.NewFilm.Director, "Podaj reżysera: ")
+        @Html.TextBoxFor(m => m.NewFilm.Director, new { @class = "form-control", @required = true })
     </div>
     <div class="form-group">
-        @Html.LabelFor(m=> m.NewFilm.Desc, "Podaj opis: ")
-        @Html.TextBoxFor(m => m.NewFilm.Desc, new{ @class = "form-control", @required = true })
+        @Html.LabelFor(m => m.NewFilm.Desc, "Podaj opis: ")
+        @Html.TextBoxFor(m => m.NewFilm.Desc, new { @class = "form-control", @required = true })
     </div>
     <div class="form-group">
-        @Html.LabelFor(m=> m.NewFilm.Price, "Podaj cenę: ")
-        @Html.TextBoxFor(m => m.NewFilm.Price, new{ @class = "form-control", @required = true })
+        @Html.LabelFor(m => m.NewFilm.Price, "Podaj cenę: ")
+        @Html.TextBoxFor(m => m.NewFilm.Price, new { @class = "form-control", @required = true })
     </div>
     <div class="form-group">
-        @Html.LabelFor(m=> m.Poster, "Wybierz plakat: ")
-        @Html.TextBoxFor(m => m.Poster, new{ @class = "form-control-file", @required = true, @type = "file"})
+        @Html.LabelFor(m => m.Poster, "Wybierz plakat:")
+        @Html.TextBoxFor(m => m.Poster, new { @type="file", @class="form-control-file", @required = true })
     </div>
-    <label>Wybierz Kategorię </label>
-    <div class= = "form-check">
+    <label>Wybierz kategorię:</label>
+    <div class="form-check">
         @foreach (var kategoria in Model.Categories)
         {
-            @Html.RadioButtonFor(m=> m.NewFilm.CategoryId, kategoria.Id, new {@class = "form-check-input",@required=true})
-            @Html.LabelFor(m=>m.NewFilm.CategoryId, kategoria.Name, new {@class = "form-check-input" })
-            <br/>
+            @Html.RadioButtonFor(m => m.NewFilm.CategoryId, kategoria.Id, new { @class="form-check-input", @required=true})
+            @Html.LabelFor(m => m.NewFilm.CategoryId, kategoria.Name, new { @class="form-check-label"})
+            <br />
         }
 
     </div>
-    <button type="submit" class="btn btn-primary">Dodaj</button>
+    <button type="submit" class="btn btn-primary"> Dodaj </button>
 }

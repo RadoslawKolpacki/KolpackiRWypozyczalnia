@@ -1,14 +1,14 @@
 ﻿using KolpackiRWypozyczalnia.Models;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KolpackiRWypozyczalnia.Infrastracture
+namespace KolpackiRWypozyczalnia.Infrastructure
 {
     public static class CartManager
     {
-       public static int RemoveFromCart (ISession session, int id)
+
+        public static int RemoveFromCart(ISession session, int id)
         {
             var cart = GetItems(session);
 
@@ -19,39 +19,48 @@ namespace KolpackiRWypozyczalnia.Infrastracture
 
             if (thisFilm.Quantity > 1)
             {
-            thisFilm.Quantity--;
-            quantity = thisFilm.Quantity;
+                thisFilm.Quantity--;
+                quantity = thisFilm.Quantity;
             }
             else
             {
                 cart.Remove(thisFilm);
             }
-            session.SetObjectAsJson( Const.CartKey, cart);
+
+            session.SetObjectAsJson(Consts.CartKey, cart);
+
             return quantity;
-        
         }
-
-        internal static decimal GetCartValue(ISession session)
-        {
-            var cart = GetItems (session);
-            return cart.Sum(i => i.Value);
-        }
-
 
         private static List<CartItem> GetItems(ISession session)
         {
-        
-            //throw new NotImplementedException();
-
-            cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Const.CartKey);
+            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(session, Consts.CartKey);
 
             if (cart == null)
             {
-                cart => new List<CartItem>();
+                cart = new List<CartItem>();
             }
 
             return cart;
         }
 
+        internal static decimal GetCartValue(ISession session)
+        {
+            var cart = GetItems(session);
+            return cart.Sum(i => i.Value);
+        }
+
+        /// <summary>
+        /// TODO: pobieranie wartości pojedynczego itemu koszyka
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        internal static decimal GetItemValue(ISession session, int id)
+        {
+            var cart = GetItems(session);
+
+            return 0;
+        }
     }
 }

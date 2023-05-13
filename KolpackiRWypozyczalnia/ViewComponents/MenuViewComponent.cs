@@ -1,18 +1,17 @@
-﻿
-using KolpackiRWypozyczalnia.DAL;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
+using KolpackiRWypozyczalnia.DAL;
 
 namespace KolpackiRWypozyczalnia.ViewComponents
 {
     public class MenuViewComponent : ViewComponent
     {
-        FilmContext db;
-    public MenuViewComponent(FilmContext db)
+        FilmsContext db;
+
+        public MenuViewComponent(FilmsContext db)
         {
             this.db = db;
         }

@@ -1,9 +1,9 @@
-﻿using KolpackiRWypozyczalnia.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
+using KolpackiRWypozyczalnia.Models;
 
 namespace KolpackiRWypozyczalnia.ViewModels
 {
@@ -11,8 +11,8 @@ namespace KolpackiRWypozyczalnia.ViewModels
     {
         public Film NewFilm { get; set; }
 
-        public List<Category> Categories { get; set; }
-
         public IFormFile Poster { get; set; }
+
+        public List<Category> Categories { get; set; }
     }
 }

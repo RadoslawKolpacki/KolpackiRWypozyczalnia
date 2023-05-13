@@ -4,18 +4,17 @@
 
 <table class="table">
     <tr>
-
-    <th>Tytuł</th>
-    <th>Ilość</th>
-    <th>Wartość</th>
-    <th>Kosz</th>
+        <th>Tytuł</th>
+        <th>Ilość</th>
+        <th>Wartość</th>
+        <th></th>
     </tr>
     @foreach (var cartItem in Model)
     {
-        <tr id="cartIten-@cartItem.Film.Id">
+        <tr id="cartItem-@cartItem.Film.Id">
             <td>@cartItem.Film.Title</td>
             <td id="itemQuantity-@cartItem.Film.Id">@cartItem.Quantity</td>
-            <td>@cartItem.Value</td>
+            <td id="itemValue-@cartItem.Film.Id">@cartItem.Value</td>
             <td class="trash" data-id="@cartItem.Film.Id">🗑️</td>
         </tr>
     }
@@ -25,32 +24,28 @@
     Razem: <span id="total">@ViewBag.totalPrice</span> zł
 </div>
 
-@section scripts
-{
 
+@section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script type="text/javascript">
-    $(".trash").click(function()
-    {
-        //console.log("śmietnik kliknięto")
+        $(".trash").click(function () {
+            //console.log("smietnik kliknieto");
             var idCartItem = $(this).data('id');
-            if (idCartItem != '')
-            {
-                $.post("/Cart/RemoveFromCart", { "id": idCartItem }, function(response)
-                {
+            if (idCartItem != '') {
+                $.post("/Cart/RemoveFromCart", { "id": idCartItem }, function (response) {
                     console.log(response);
-                    if (response.itemQuantity == 0)
-                    {
-                        $("#cartitem-" + response.itemId).FadeOut("slow");
+                    if (response.itemQuantity == 0) {
+                        $("#cartItem-" + response.itemId).fadeOut("slow");
                     }
-                    else
-                    {
+                    else {
                         $("#itemQuantity-" + response.itemId).text(response.itemQuantity);
+                        $("#itemValue-" + response.itemId).text(response.itemValue);
                     }
-                    $("$total").text(response.totalValue);
+                    $("#total").text(response.totalValue);
+
                 });
             }
-    });    
+        });
     </script>
-
 }

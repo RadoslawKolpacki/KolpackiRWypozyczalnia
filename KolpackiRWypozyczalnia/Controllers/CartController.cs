@@ -1,22 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KolpackiRWypozyczalnia.DAL;
+using KolpackiRWypozyczalnia.Infrastructure;
 using KolpackiRWypozyczalnia.Models;
-using KolpackiRWypozyczalnia.Infrastracture;
 using KolpackiRWypozyczalnia.ViewModels;
 
 namespace KolpackiRWypozyczalnia.Controllers
 {
-    
     public class CartController : Controller
     {
-        FilmContext db;
+        FilmsContext db;
 
-        public CartController(FilmContext db)
+        public CartController(FilmsContext db)
         {
             this.db = db;
         }
@@ -24,18 +22,14 @@ namespace KolpackiRWypozyczalnia.Controllers
         [Route("Koszyk")]
         public IActionResult Index()
         {
-            cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Const.CartKey);
+            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Consts.CartKey);
 
             if (cart == null)
             {
-                cart => new List<CartItem>(); 
+                cart = new List<CartItem>();
             }
 
-            return cart;
-            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Const.CartKey);
-
             ViewBag.totalPrice = cart.Sum(i => i.Value);
-
             return View(cart);
         }
 
@@ -43,7 +37,7 @@ namespace KolpackiRWypozyczalnia.Controllers
         {
             var film = db.Films.Find(id);
 
-            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Const.CartKey) == null)
+            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Consts.CartKey) == null)
             {
                 var cart = new List<CartItem>();
                 cart.Add(new CartItem
@@ -52,11 +46,11 @@ namespace KolpackiRWypozyczalnia.Controllers
                     Quantity = 1,
                     Value = film.Price
                 });
-                SessionHelper.SetObjectAsJson(HttpContext.Session, Const.CartKey, cart);
+                SessionHelper.SetObjectAsJson(HttpContext.Session, Consts.CartKey, cart);
             }
             else
             {
-                var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Const.CartKey);
+                var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Consts.CartKey);
 
                 var index = GetIndex(id, cart);
                 if (index == -1)
@@ -74,10 +68,10 @@ namespace KolpackiRWypozyczalnia.Controllers
                     cart[index].Value += film.Price;
                 }
 
-                SessionHelper.SetObjectAsJson(HttpContext.Session, Const.CartKey, cart);
+                SessionHelper.SetObjectAsJson(HttpContext.Session, Consts.CartKey, cart);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Cart");
         }
 
         int GetIndex(int id, List<CartItem> cart)
@@ -93,14 +87,17 @@ namespace KolpackiRWypozyczalnia.Controllers
             return -1;
         }
 
+
         public IActionResult RemoveFromCart(int id)
         {
             var model = new ItemRemoveViewModel()
             {
-                itemId = id,
-                itemQuantity = CartManager.RemoveFromCart(HttpContext.Session, id),
+                ItemId = id,
+                ItemQuantity = CartManager.RemoveFromCart(HttpContext.Session, id),
+                ItemValue = CartManager.GetItemValue(HttpContext.Session, id),
                 TotalValue = CartManager.GetCartValue(HttpContext.Session)
             };
+
             return Json(model);
         }
     }

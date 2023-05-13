@@ -1,18 +1,22 @@
 ﻿using KolpackiRWypozyczalnia.Models;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace KolpackiRWypozyczalnia.DAL
 {
-    public class FilmContext : DbContext
+    public class FilmsContext : DbContext
     {
         public DbSet<Film> Films { get; set; }
 
         public DbSet<Category> Categories { get; set; }
-        public FilmContext(DbContextOptions option) : base(option)
-        {  
+
+        public FilmsContext(DbContextOptions options) : base(options)
+        {
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>().HasData(
@@ -44,9 +48,10 @@ namespace KolpackiRWypozyczalnia.DAL
                 {
                     Id = 5,
                     Name = "Fantasy",
-                    Desc = "Elementy magiiczne i nadprzyrodzone"
+                    Desc = "Elementy magiczne i nadprzyrodzone"
                 }
                 );
+
             modelBuilder.Entity<Film>().HasData(
                   new Film()
                   {
@@ -56,9 +61,8 @@ namespace KolpackiRWypozyczalnia.DAL
                       Director = "Marcus Nispel",
                       Desc = "20 sierpnia 1973 roku teksańska policja trafiła do stojącego na uboczu domu Thomasa Hewitta - byłego pracownika lokalnej rzeźni. Na miejscu odkryli rozkładające się zwłoki 33 osób, które zostały zamordowane przez psychopatycznego zabójcę noszącego na twarzy maskę z ludzkiej skóry i posługującego się piłą mechaniczną.",
                       Price = 10m,
-                      PublishDate = new DateTime(2022,12,10),
+                      PublishDate = new DateTime(2022, 12, 10),
                       PosterName = "teksanska-masakra-pila-mechaniczna.jpg"
-
                   },
                 new Film()
                 {
@@ -68,7 +72,7 @@ namespace KolpackiRWypozyczalnia.DAL
                     Director = "Joel Schumacher",
                     Desc = "Mężczyzna dostaje obsesji na punkcie książki, która według niego opisuje i przewiduje jego życie i przyszłość.",
                     Price = 14m,
-                    PublishDate = new DateTime(2022, 12, 01),
+                    PublishDate = new DateTime(2022, 11, 15),
                     PosterName = "numer-23.jpg"
                 },
                 new Film()
@@ -79,9 +83,8 @@ namespace KolpackiRWypozyczalnia.DAL
                     Director = "David Koepp",
                     Desc = "Uznany pisarz przenosi się na prowincję, by w spokoju tworzyć kolejne książki. Wkrótce odwiedzi go tajemniczy mężczyzna, który oskarży Raineya o plagiat.",
                     Price = 12m,
-                    PublishDate = new DateTime(2023,11,10),
+                    PublishDate = new DateTime(2023, 01, 21),
                     PosterName = "sekretne-okno.jpg"
-
                 },
                 new Film()
                 {
@@ -91,7 +94,7 @@ namespace KolpackiRWypozyczalnia.DAL
                     Director = "Peter Jackson",
                     Desc = "Podróż hobbita z Shire i jego ośmiu towarzyszy, której celem jest zniszczenie potężnego pierścienia pożądanego przez Czarnego Władcę - Saurona.",
                     Price = 20m,
-                    PublishDate = new DateTime(2019,03,17),
+                    PublishDate = new DateTime(2023, 03, 21),
                     PosterName = "wladca-pierscieni-druzyna-pierscienia.jpg"
                 },
                 new Film()
@@ -102,7 +105,7 @@ namespace KolpackiRWypozyczalnia.DAL
                     Director = "Robert Schwentke",
                     Desc = "Emerytowani agenci specjalni CIA zostają wrobieni w zamach. By się ratować, muszą reaktywować stary zespół.",
                     Price = 11m,
-                    PublishDate = new DateTime(2020,07,03),
+                    PublishDate = new DateTime(2022, 10, 01),
                     PosterName = "red.jpg"
                 },
                 new Film()
@@ -113,8 +116,8 @@ namespace KolpackiRWypozyczalnia.DAL
                     Director = "Tomasz Sekielski",
                     Desc = "Dziennikarz śledczy rozmawia z dziewięcioma księżmi katolickimi, którzy dopuścili się zbrodni pedofilii i molestowania nieletnich, a także ich ofiarami.",
                     Price = 0m,
-                    PublishDate = new DateTime(2021,02,02),
-                    PosterName = "tylko-nie-mow-nikomu.jpg"
+                    PublishDate = new DateTime(2022, 08, 15),
+                    PosterName = "tylko - nie - mow - nikomu.jpg"
 
                 },
                 new Film()
@@ -125,7 +128,7 @@ namespace KolpackiRWypozyczalnia.DAL
                     Director = "Neil Burger",
                     Desc = "Wiedeń u progu XX w. Syn rzemieślnika, iluzjonista Eisenheim, wykorzystuje niezwykłe umiejętności, by zdobyć miłość arystokratki, narzeczonej austro-węgierskiego księcia.",
                     Price = 13m,
-                    PublishDate = new DateTime(2019,04,23),
+                    PublishDate = new DateTime(2022, 07, 12),
                     PosterName = "iluzjonista.jpg"
                 },
                 new Film()
@@ -136,7 +139,7 @@ namespace KolpackiRWypozyczalnia.DAL
                     Director = "Vincenzo Natali",
                     Desc = "Grupa osób budzi się w pełnym śmiertelnych pułapek sześcianie. Nieznajomi muszą zacząć współpracować ze sobą, by przeżyć.",
                     Price = 15m,
-                    PublishDate = new DateTime(2020,03,01),
+                    PublishDate = new DateTime(2022, 12, 30),
                     PosterName = "cube.jpg"
                 },
                 new Film()
@@ -147,7 +150,7 @@ namespace KolpackiRWypozyczalnia.DAL
                     Director = "Clive Barker",
                     Desc = "Frank Cotton nabywa tajemniczą kostkę, za pomocą której można przywołać demony z piekła.",
                     Price = 16m,
-                    PublishDate = new DateTime(2023,01,20),
+                    PublishDate = new DateTime(2022, 04, 04),
                     PosterName = "hellriser.jpg"
                 },
                 new Film()
@@ -158,7 +161,7 @@ namespace KolpackiRWypozyczalnia.DAL
                     Director = "Jonathan Demme",
                     Desc = "Seryjny morderca i inteligentna agentka łączą siły, by znaleźć przestępcę obdzierającego ze skóry swoje ofiary.",
                     Price = 17m,
-                    PublishDate = new DateTime(2021,10,10),
+                    PublishDate = new DateTime(2022, 03, 12),
                     PosterName = "milczenie-owiec.jpg"
                 }
                 );

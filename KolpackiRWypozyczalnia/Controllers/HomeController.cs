@@ -1,6 +1,4 @@
-﻿
-using Flurl.Http.Content;
-using KolpackiRWypozyczalnia.DAL;
+﻿using KolpackiRWypozyczalnia.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,9 +11,9 @@ namespace KolpackiRWypozyczalnia.Controllers
 {
     public class HomeController : Controller
     {
-        FilmContext db;
+        FilmsContext db;
 
-        public HomeController(FilmContext db)
+        public HomeController(FilmsContext db)
         {
             this.db = db;
         }

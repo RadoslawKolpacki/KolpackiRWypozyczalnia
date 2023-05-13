@@ -1,19 +1,16 @@
-﻿@model IEnumerable<KolpackiRWypozyczalnia.Models.Category>
+﻿@model IEnumerable<UKolpackiRWypozyczalnia.Models.Category>
 
 <nav class="menu">
-
-
     @foreach (var kategoria in Model)
     {
-        <a class= "menu-link"  href="@Url.Action("FilmsList", "Films", new {categoryName = kategoria.Name })"> @kategoria.Name</a>
+        <a class="menu-link" href="@Url.Action("FilmsList", "Films" , new { categoryName=kategoria.Name })"> @kategoria.Name </a>
     }
 
-        <div class= "input-group menu-link">
+    <div class="input-group menu-link">
         @using (Html.BeginForm("Search", "Films"))
-            { 
+        {
             @Html.TextBox("text")
             <button type="submit" class="btn btn-outline-light">Wyszukaj</button>
-            }
-
-        </div>
+        }
+    </div>
 </nav>

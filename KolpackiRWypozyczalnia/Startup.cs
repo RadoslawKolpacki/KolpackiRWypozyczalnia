@@ -1,16 +1,15 @@
-using KolpackiRWypozyczalnia.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KolpackiRWypozyczalnia.DAL;
 
 namespace KolpackiRWypozyczalnia
 {
@@ -31,7 +30,7 @@ namespace KolpackiRWypozyczalnia
             /// builder.Services.AddDbContext<FilmsContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDB")));
 
             /// dodawanie Contextu
-            services.AddDbContext<FilmContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
+            services.AddDbContext<FilmsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
 
             services.AddSession();
         }
@@ -63,13 +62,13 @@ namespace KolpackiRWypozyczalnia
                 endpoints.MapControllerRoute(
                     name: "Kategorie",
                     pattern: "Category/{categoryName}",
-                    defaults: new { controller = "Films", action = "FilmsList" }
+                    defaults: new { controller = "Films", action = "FilmsList"}
                     );
 
                 endpoints.MapControllerRoute(
                     name: "StronyStatyczne",
                     pattern: "Info/{nazwa}",
-                    defaults: new { controller = "Home", action = "StronyStatyczne" }
+                    defaults: new { controller="Home", action="StronyStatyczne" }
                     );
 
                 endpoints.MapControllerRoute(

@@ -1,24 +1,23 @@
 ﻿@model KolpackiRWypozyczalnia.ViewModels.CategoryFilmsViewModel
+
 @{
     ViewData["Title"] = Model.Category.Name;
 }
-<link href="~/lib/bootstrao/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 
 <table width="100%">
     <tr>
         @foreach (var film in Model.RecentFilms)
         {
             <td style="text-align:center">
-                <img src="~/content/@film.PosterName" height="200px" alt="Plakat filmu" /> 
+                <img src="~/content/@film.PosterName" height="200px" alt="Plakat filmu" />
             </td>
         }
     </tr>
 </table>
 
-
-
-
-<h1>@Model.Category.Name </h1>
+<h1>@Model.Category.Name</h1>
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -33,15 +32,15 @@
         @foreach (var film in Model.CategoryFilms)
         {
             <tr>
-                <td> @film.Title </td>
-                <td> @film.Director </td>
-                <td> @film.Desc </td>
-                <td> @film.Price </td>
+                <td>@film.Title</td>
+                <td>@film.Director</td>
+                <td>@film.Desc</td>
+                <td>@film.Price</td>
                 <td>
-                    <a href="@Url.Action("Details","Films", new {FilmId = film.Id})">&#128269</a>
+                    <a href="@Url.Action("Details", "Films", new { filmId = film.Id })">&#129440;</a>
                 </td>
                 <td>
-                    <a href="@Url.Action("Buy","Cart", new {FilmId = film.Id})">&#128269</a>
+                    <a href="@Url.Action("Buy", "Cart", new { id = film.Id })">🛒</a>
                 </td>
             </tr>
         }

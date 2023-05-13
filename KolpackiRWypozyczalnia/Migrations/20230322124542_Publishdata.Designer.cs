@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KolpackiRWypozyczalnia.Migrations
 {
-    [DbContext(typeof(FilmContext))]
+    [DbContext(typeof(FilmsContext))]
     [Migration("20230322124542_Publishdata")]
     partial class Publishdata
     {

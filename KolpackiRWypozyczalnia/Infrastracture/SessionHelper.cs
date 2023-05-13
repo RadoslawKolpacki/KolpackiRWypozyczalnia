@@ -1,34 +1,23 @@
-﻿
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-
-
-namespace KolpackiRWypozyczalnia.Infrastracture
+namespace KolpackiRWypozyczalnia.Infrastructure
 {
     public static class SessionHelper
     {
-        private static object value;
-
-        public static void SetObjectAsJson(this ISession session, string key, object value , object value1)
+        public static void SetObjectAsJson(this ISession session, string key, object value)
         {
-            session.SetObjectAsJson(key, JsonConverter.SerializeObject(value));
+            session.SetString(key, JsonConvert.SerializeObject(value));
         }
-        public static void GetObjectFromJson<T>(this ISession session, string key, object value)
+
+        public static T GetObjectFromJson<T>(this ISession session, string key)
         {
             var value = session.GetString(key);
-            return  value ==null ? default(T): JsonConverter.DeserializeObject <T>(value);
-        }
-
-        internal static object GetObjectAsJson<T>(ISession session, string cartKey)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal static object GetObjectFromJson<T>(ISession session, string cartKey)
-        {
-            throw new NotImplementedException();
+            return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
     }
 }
