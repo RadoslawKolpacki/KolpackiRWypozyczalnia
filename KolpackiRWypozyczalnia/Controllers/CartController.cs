@@ -7,6 +7,7 @@ using KolpackiRWypozyczalnia.DAL;
 using KolpackiRWypozyczalnia.Infrastructure;
 using KolpackiRWypozyczalnia.Models;
 using KolpackiRWypozyczalnia.ViewModels;
+using KolpackiRWypozyczalnia.Controllers;
 
 namespace KolpackiRWypozyczalnia.Controllers
 {
@@ -22,69 +23,15 @@ namespace KolpackiRWypozyczalnia.Controllers
         [Route("Koszyk")]
         public IActionResult Index()
         {
-            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Consts.CartKey);
-
-            if (cart == null)
-            {
-                cart = new List<CartItem>();
-            }
-
-            ViewBag.totalPrice = cart.Sum(i => i.Value);
+            var cart = CartManager.GetItems(HttpContext.Session);
+            ViewBag.totalPrice = CartManager.GetCartValue(HttpContext.Session);
             return View(cart);
         }
 
         public IActionResult Buy(int id)
         {
-            var film = db.Films.Find(id);
-
-            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Consts.CartKey) == null)
-            {
-                var cart = new List<CartItem>();
-                cart.Add(new CartItem
-                {
-                    Film = film,
-                    Quantity = 1,
-                    Value = film.Price
-                });
-                SessionHelper.SetObjectAsJson(HttpContext.Session, Consts.CartKey, cart);
-            }
-            else
-            {
-                var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Consts.CartKey);
-
-                var index = GetIndex(id, cart);
-                if (index == -1)
-                {
-                    cart.Add(new CartItem
-                    {
-                        Film = film,
-                        Quantity = 1,
-                        Value = film.Price
-                    });
-                }
-                else
-                {
-                    cart[index].Quantity++;
-                    cart[index].Value += film.Price;
-                }
-
-                SessionHelper.SetObjectAsJson(HttpContext.Session, Consts.CartKey, cart);
-            }
-
+            CartManager.AddtoCart(HttpContext.Session, db, id);
             return RedirectToAction("Index", "Cart");
-        }
-
-        int GetIndex(int id, List<CartItem> cart)
-        {
-            for (int i = 0; i < cart.Count; i++)
-            {
-                if (cart[i].Film.Id == id)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
         }
 
 

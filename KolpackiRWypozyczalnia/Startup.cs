@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KolpackiRWypozyczalnia.DAL;
+using KolpackiRWypozyczalnia.Models;
 
 namespace KolpackiRWypozyczalnia
 {
@@ -25,12 +26,22 @@ namespace KolpackiRWypozyczalnia
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<AppUser, AppRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequiredLength = 5;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Lockout.MaxFailedAccessAttempts = 3;
+
+            }).AddEntityFrameworkStores<IdentityAppContext>();
             services.AddControllersWithViews();
 
             /// builder.Services.AddDbContext<FilmsContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDB")));
 
             /// dodawanie Contextu
             services.AddDbContext<FilmsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
+            services.AddDbContext<IdentityAppContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
 
             services.AddSession();
         }
@@ -52,6 +63,8 @@ namespace KolpackiRWypozyczalnia
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

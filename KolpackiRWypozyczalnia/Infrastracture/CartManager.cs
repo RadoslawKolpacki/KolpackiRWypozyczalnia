@@ -1,5 +1,7 @@
-﻿using KolpackiRWypozyczalnia.Models;
+﻿using KolpackiRWypozyczalnia.DAL;
+using KolpackiRWypozyczalnia.Models;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +9,31 @@ namespace KolpackiRWypozyczalnia.Infrastructure
 {
     public static class CartManager
     {
+        public static void AddtoCart(ISession session, FilmsContext db, int filmId)
+        {
+            var cart = GetItems(session);
+            var thisFilm = cart.Find(f => f.Film.Id == filmId);
+            if (thisFilm != null)
+            {
+                thisFilm.Quantity++;
+                thisFilm.Value += thisFilm.Film.Price;
+            }
+            else
+            {
+                var newCartItem = db.Films.Where(f => f.Id == filmId).SingleOrDefault();
+                if (newCartItem != null)
+                {
+                    var cartItem = new CartItem
+                    {
+                        Film = newCartItem,
+                        Quantity = 1,
+                        Value = newCartItem.Price
+                    };
+                    cart.Add(cartItem);
+                }
+            }
+            SessionHelper.SetObjectAsJson(session, Consts.CartKey, cart);
+        }
 
         public static int RemoveFromCart(ISession session, int id)
         {
@@ -20,6 +47,7 @@ namespace KolpackiRWypozyczalnia.Infrastructure
             if (thisFilm.Quantity > 1)
             {
                 thisFilm.Quantity--;
+                thisFilm.Value -= thisFilm.Film.Price;
                 quantity = thisFilm.Quantity;
             }
             else
@@ -32,7 +60,7 @@ namespace KolpackiRWypozyczalnia.Infrastructure
             return quantity;
         }
 
-        private static List<CartItem> GetItems(ISession session)
+        public static List<CartItem> GetItems(ISession session)
         {
             var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(session, Consts.CartKey);
 
@@ -56,11 +84,18 @@ namespace KolpackiRWypozyczalnia.Infrastructure
         /// <param name="session"></param>
         /// <param name="id"></param>
         /// <returns></returns>
+
         internal static decimal GetItemValue(ISession session, int id)
         {
             var cart = GetItems(session);
-
+            foreach (var item in cart)
+            {
+                if (id == item.Film.Id)
+                {
+                    return cart.Sum(f => f.Value);
+                }
+            }
             return 0;
-        }
+        }   
     }
 }
