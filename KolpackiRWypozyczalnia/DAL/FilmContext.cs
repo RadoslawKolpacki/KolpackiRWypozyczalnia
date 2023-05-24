@@ -13,9 +13,13 @@ namespace KolpackiRWypozyczalnia.DAL
 
         public DbSet<Category> Categories { get; set; }
 
-        public FilmsContext(DbContextOptions options) : base(options)
-        {
-        }
+        
+        
+            public FilmsContext(DbContextOptions<FilmsContext> options) : base(options)
+            {
+            }
+        
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
