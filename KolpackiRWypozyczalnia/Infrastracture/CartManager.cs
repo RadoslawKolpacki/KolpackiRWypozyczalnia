@@ -92,7 +92,7 @@ namespace KolpackiRWypozyczalnia.Infrastructure
             {
                 if (id == item.Film.Id)
                 {
-                    return cart.Sum(f => f.Value);
+                    return item.Value;
                 }
             }
             return 0;

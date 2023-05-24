@@ -1,0 +1,42 @@
+﻿@model KolpackiRWypozyczalnia.ViewModels.RegisterViewModel
+<p class="alert-warning">
+    @ViewBag.result
+    @Html.ValidationSummary()
+</p>
+@using (Html.BeginForm("Register", "Films"))
+{
+
+    <li class=list-group-item>
+        E-mail:
+        @Html.TextBoxFor(f => f.Email, new { @class = "form-control" })
+        <span class="alert-warning"> @Html.ValidationMessageFor(f=>f.Email) </span>
+    </li>
+    <li class=list-group-item>
+        Login:
+        @Html.TextBoxFor(f => f.Username, new { @class = "form-control" })
+        <span class="alert-warning"> @Html.ValidationMessageFor(f=>f.Email) </span>
+    </li>
+    <li class=list-group-item>
+        Imię:
+        @Html.TextBoxFor(f => f.FirstName, new { @class = "form-control" })
+        <span class="alert-warning"> @Html.ValidationMessageFor(f=>f.Email) </span>
+    </li>
+    <li class=list-group-item>
+        Nazwisko:
+        @Html.TextBoxFor(f => f.LastName, new { @class = "form-control" })
+    </li>
+    <li class=list-group-item>
+        Hasło:
+        @Html.TextBoxFor(f => f.Password, new { @class = "form-control" })
+        <span class="alert-warning"> @Html.ValidationMessageFor(f=>f.Email) </span>
+    </li>
+    <li class=list-group-item>
+        Potwierdź hasło:
+        @Html.TextBoxFor(f => f.ConfirmPassword, new { @class = "form-control" })
+        <span class="alert-warning"> @Html.ValidationMessageFor(f=>f.Email) </span>
+    </li>
+
+    <button type="submit" class="btn btn-primary">
+        Zaloguj
+    </button>
+}
