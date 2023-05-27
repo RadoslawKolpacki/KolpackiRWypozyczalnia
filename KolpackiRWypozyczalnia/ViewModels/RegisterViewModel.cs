@@ -1,28 +1,31 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace KolpackiRWypozyczalnia.ViewModels
 {
     public class RegisterViewModel
     {
-        [Required(ErrorMessage= "Musisz wprowadzić e-mail")]
-        [EmailAddress(ErrorMessage = "Nieprawidłowy format e-mail")]
-
+        [Required(ErrorMessage = "Musisz wprowadzić email")]
+        [EmailAddress(ErrorMessage = "Nieprawidłowy format email")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "Musisz wprowadzić login")]
 
-        public string Username { get; set; }
-        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Musisz wprowadzić login")]
+        public string UserName { get; set; }
+
         [Required(ErrorMessage = "Musisz wprowadzić hasło")]
-        public string Password { get; set; }
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "Musisz potwierdzić hasło")]
-        public string ConfirmPassword { get; set; } 
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Musisz powtórzyć hasło")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Hasła muszą być jednakowe!")]
+        public string ConfirmPassword { get; set; }
 
         public string FirstName { get; set; }
 
-        public string LastName { get; set; }    
-
-
+        public string LastName { get; set; }
     }
 }

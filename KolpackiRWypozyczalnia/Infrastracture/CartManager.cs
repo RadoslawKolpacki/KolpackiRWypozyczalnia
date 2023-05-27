@@ -1,18 +1,23 @@
 ﻿using KolpackiRWypozyczalnia.DAL;
+using KolpackiRWypozyczalnia.Infrastructure;
 using KolpackiRWypozyczalnia.Models;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+
+
 
 namespace KolpackiRWypozyczalnia.Infrastructure
 {
     public static class CartManager
     {
-        public static void AddtoCart(ISession session, FilmsContext db, int filmId)
+        public static void AddToCart(ISession session, FilmsContext db, int filmId)
         {
             var cart = GetItems(session);
             var thisFilm = cart.Find(f => f.Film.Id == filmId);
+
             if (thisFilm != null)
             {
                 thisFilm.Quantity++;
@@ -21,6 +26,7 @@ namespace KolpackiRWypozyczalnia.Infrastructure
             else
             {
                 var newCartItem = db.Films.Where(f => f.Id == filmId).SingleOrDefault();
+
                 if (newCartItem != null)
                 {
                     var cartItem = new CartItem
@@ -29,11 +35,14 @@ namespace KolpackiRWypozyczalnia.Infrastructure
                         Quantity = 1,
                         Value = newCartItem.Price
                     };
+
                     cart.Add(cartItem);
                 }
             }
+
             SessionHelper.SetObjectAsJson(session, Consts.CartKey, cart);
         }
+
 
         public static int RemoveFromCart(ISession session, int id)
         {
@@ -79,23 +88,25 @@ namespace KolpackiRWypozyczalnia.Infrastructure
         }
 
         /// <summary>
-        /// TODO: pobieranie wartości pojedynczego itemu koszyka
+        /// TODO: Dwa filmy po 2 z tej samej kat. przy usuwaniu powodują błąd obliczeń
         /// </summary>
         /// <param name="session"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-
         internal static decimal GetItemValue(ISession session, int id)
         {
             var cart = GetItems(session);
+
             foreach (var item in cart)
             {
                 if (id == item.Film.Id)
                 {
+                    /// tutaj był błąd ze zwracaniem sumy wszystkich wartości z koszyka zamiast pojedynczego itemu
                     return item.Value;
                 }
             }
+
             return 0;
-        }   
+        }
     }
 }

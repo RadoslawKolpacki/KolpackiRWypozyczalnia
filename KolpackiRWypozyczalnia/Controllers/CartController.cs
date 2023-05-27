@@ -30,7 +30,7 @@ namespace KolpackiRWypozyczalnia.Controllers
 
         public IActionResult Buy(int id)
         {
-            CartManager.AddtoCart(HttpContext.Session, db, id);
+            CartManager.AddToCart(HttpContext.Session, db, id);
             return RedirectToAction("Index", "Cart");
         }
 

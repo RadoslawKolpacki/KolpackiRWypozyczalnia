@@ -2,27 +2,26 @@
 using KolpackiRWypozyczalnia.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 
 namespace KolpackiRWypozyczalnia.Controllers
-   
 {
-    public class AccountController
+    public class AccountController : Controller
     {
-
-        UserManager<AppUser> UserManager { get; }
+        UserManager<AppUser> userManager { get; }
 
         SignInManager<AppUser> signInManager { get; }
 
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
-            UserManager = userManager;
+            this.userManager = userManager;
             this.signInManager = signInManager;
         }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel user)
         {
@@ -32,29 +31,61 @@ namespace KolpackiRWypozyczalnia.Controllers
                 {
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    Email = user.Email,
-                    UserName = user.Username,
-                    Password = user.Password
+                    UserName = user.UserName,
+                    Password = user.Password,
+                    Email = user.Email
                 };
 
-                var result = await UserManager.CreateAsync(newUser, newUser.Password);
+                var result = await userManager.CreateAsync(newUser, newUser.Password);
 
-                ViewBag.result = result.Errors.ToList();
+                if (result.Succeeded)
+                {
+                    await signInManager.SignInAsync(newUser, false);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+
+                    var errorList = result.Errors.ToList();
+                    ViewBag.result = string.Join("\n", errorList.Select(e => e.Description));
+                }
             }
-            return View();
-        }
-
-        private IActionResult View()
-        {
-            throw new NotImplementedException();
+            return View(user);
         }
 
         [HttpGet]
         public IActionResult Register()
         {
-            
+            return View();
         }
 
-        public async Task<IActionResult> Login(LoginViewModel login)
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            var result = await signInManager.PasswordSignInAsync(user.Login, user.Password, false, false);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Nieudana próba logowania");
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
     }
 }

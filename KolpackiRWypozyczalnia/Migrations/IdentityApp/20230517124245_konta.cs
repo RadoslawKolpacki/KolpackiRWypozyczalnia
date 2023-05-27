@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace KolpackiRWypozyczalnia.Migrations.IdentityApp
 {
-    public partial class user : Migration
+    public partial class konta : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
